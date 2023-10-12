@@ -11,15 +11,16 @@ RUN apt-get -y update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
 
-WORKDIR /home/runner/app
 
 
 ENV PATH="${PATH}:/home/runner/.local/bin"
 
+WORKDIR /home/runner/app
+
 COPY ./  ./
 
 RUN pip install --upgrade pip \
-    && pip install --no-cache-dir poetry \
+    && pip install  poetry \
     && poetry install --only main
 
 EXPOSE 8000
@@ -27,6 +28,6 @@ EXPOSE 8000
 ENTRYPOINT [ "poetry", "run" ]
 
 # $CHALLENGIFY_BEGIN
-CMD uvicorn app.main:app --host 0.0.0.0 --port 8000
+CMD uvicorn app.main:app --host 0.0.0.0 --port $PORT
 # $CHALLENGIFY_END
 #CMD uvicorn app.main:app --host 0.0.0.0 --port 8000
