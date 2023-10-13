@@ -1,8 +1,10 @@
 from fastapi import FastAPI
+import random 
+
 
 app = FastAPI()
 
 
 @app.get("/")
 def read_root():
-    return {"Hello": "From the cloud!"}
+    return {"roll" : random.randint(1,6)}
